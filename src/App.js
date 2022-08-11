@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from 'react-router-dom'
+
+import { RequireAuth, LogOut } from './components/Auth'
+import Header from './components/Header'
+import Home from './components/Home'
+import Upload from './components/upload/Upload'
+import LogIn from './components/LogIn'
+import Images from './components/Images'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LogIn/>} />
+
+          <Route
+            element={
+              <RequireAuth>
+                <Header/>
+              </RequireAuth>
+            }
+          >
+            <Route path="/logout" element={<LogOut/>} />
+            <Route path="/" element={<Home/>} />
+            <Route path="zdjecia/:cluster" element={<Images/>} />
+            <Route path="upload" element={<Upload />} />
+            <Route path="*" element={<NotFound/>} />
+          </Route>
+
+        </Routes>
+      </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+function NotFound() {
+  return (
+    <h1 style={{textAlign: "center"}}>404</h1>
+  )
+}
+
+export default App
