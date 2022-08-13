@@ -30,7 +30,9 @@ export default function ImageGrid(props) {
     }
     const elementName = `img[imagekey='${key}']`
     if (document.querySelector(elementName).src) {
-      setCurrentImageSource(document.querySelector(elementName).src)
+      const arr = document.querySelector(elementName).src.split('/')
+      const name = arr[arr.length - 1]
+      setCurrentImageSource(name)
     }
     if (key >= 0) {
       setCurrentImageKey(key)
