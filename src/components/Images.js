@@ -15,7 +15,9 @@ export default function ImageGrid(props) {
   const [currentImageKey, setCurrentImageKey] = useState(0)
 
   const handleModal = (e) => {
-    setCurrentImageSource(e.target.src)
+    const arr = e.target.src.split('/')
+    const name = arr[arr.length - 1]
+    setCurrentImageSource(name)
     setCurrentImageKey(e.target.getAttribute('imagekey'))
   }
 
@@ -63,7 +65,7 @@ export default function ImageGrid(props) {
                 <div className="ImageImageGridContainer" key={index}>
                   <img
                     className="ImageImageGrid"
-                    src={sources.staticImages + image}
+                    src={sources.imageFile + '360/' + image}
                     imagekey={index}
                     onClick={handleModal}
                     onError={() => validateToken(setFetchStatusCode)}
@@ -79,7 +81,7 @@ export default function ImageGrid(props) {
               <ForwardButtonCenter changeState={getSibling} toState={'next'} />
               <img
                 className="ImageFullScale"
-                src={currentImageSource}
+                src={sources.imageFile + '1080/' + currentImageSource}
                 onError={() => validateToken(setFetchStatusCode)}
                 alt="One of many photos i took in greece"/>
             </div>
