@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 
 import { Link } from 'react-router-dom'
-
 import { CloseButton, BackButton } from './Buttons'
+import { LoadingAnimation, APIerror } from './UIAssets'
+import { fetchClusters } from './fetchMethods'
+
+import sources from '../data/sources'
 
 export default function Nav(props) {
   const [toggleInnerNav, setToggleInnerNav] = useState(false)
@@ -44,13 +47,33 @@ function MainMenu(props) {
 }
 
 function SecondaryMenu(props) {
+  const [clusters, setClusters] = useState([]);
+  const [status, setStatus] = useState(0);
+
+  useEffect(() => {
+    fetchClusters()
+      .then(response => {
+        if (response.data) {
+          setStatus(response.status)
+          setClusters(response.data)
+        } else {
+          setStatus(response.status)
+        }
+      })
+  }, [])
   return (
     <>
       <BackButton changeState={props.setToggleInnerNav} toState={!props.toggleInnerNav}/>
       <span className="NavListItem NavListItemCurrent">Zdjęcia</span>
-      <Link to="zdjecia/grecja2021" className="NavListItem">Grecja 2021</Link>
-      <Link to="zdjecia/grecja2021" className="NavListItem">Góry 2020</Link>
-      <Link to="zdjecia/grecja2021" className="NavListItem">Włochy 2020</Link>
+      {status === 0 ? (
+        <LoadingAnimation display="block"/>
+      ) : (status === 200 ? (
+        clusters.map((obj, index) => {
+          return <Link to={'zdjecia/' + obj.clusterURI} key={index} className="NavListItem">{obj.clusterName}</Link>
+        })
+      ) : (
+        <APIerror />
+      ))}
     </>
   )
 }

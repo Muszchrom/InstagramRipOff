@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import { CloseButton, BackButtonCenter, ForwardButtonCenter } from './Buttons'
-import { Navigate } from 'react-router-dom'
-import LoadingAnimation from './UIAssets'
+import { Navigate, useLocation } from 'react-router-dom'
+import { LoadingAnimation } from './UIAssets'
 import { validateToken } from './Auth'
 
 import sources from '../data/sources'
@@ -13,6 +13,8 @@ export default function ImageGrid(props) {
 
   const [currentImageSource, setCurrentImageSource] = useState('')
   const [currentImageKey, setCurrentImageKey] = useState(0)
+
+  const location = useLocation()
 
   const handleModal = (e) => {
     const arr = e.target.src.split('/')
@@ -29,7 +31,7 @@ export default function ImageGrid(props) {
       key = parseInt(currentImageKey) + 1
     }
     const elementName = `img[imagekey='${key}']`
-    if (document.querySelector(elementName).src) {
+    if (document.querySelector(elementName)?.src) {
       const arr = document.querySelector(elementName).src.split('/')
       const name = arr[arr.length - 1]
       setCurrentImageSource(name)
@@ -41,10 +43,18 @@ export default function ImageGrid(props) {
 
   useEffect(() => {
     let ignore = false
+    const clusterURI = location.pathname.split('/')[location.pathname.split('/').length - 1]
+
     const startFetching = async () => {
-      const fetchedImages = await fetch(sources.imageNames, {
+      const fetchedCluster = await fetch(sources.clusters + clusterURI, {
         method: 'GET',
         credentials: 'include'
+      })
+      const jsonedCluster = await fetchedCluster.json()
+
+      const fetchedImages = await fetch(sources.imageNames + jsonedCluster._id, {
+        method: 'GET',
+        credentials: 'include',
       })
       const jsonedImages = await fetchedImages.json()
       if (!ignore) {
@@ -54,7 +64,7 @@ export default function ImageGrid(props) {
     }
     startFetching()
     return () => {ignore = true}
-  }, [])
+  }, [location.pathname])
 
 
   return (

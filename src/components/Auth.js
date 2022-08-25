@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import LoadingAnimation from './UIAssets'
+import { LoadingAnimation } from './UIAssets'
 
 import sources from '../data/sources'
 

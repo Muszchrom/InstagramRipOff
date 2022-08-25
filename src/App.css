@@ -33,19 +33,6 @@ button {
   color: var(--color);
 }
 
-.ModalWindow {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 99;
-  background: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: auto;
-}
 .ImageFullScale {
   display: block;
   max-width: 100%;
@@ -60,7 +47,64 @@ button {
   display: flex;
   align-items: center;
 }
+.eightyPercent {
+  min-width: 180px;
+  width: 80%;
+  max-width: 300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* ========================================================== */
 
+/* MODAL */
+
+/* ========================================================== */
+
+.ModalWindow,
+.ModalWindowTransparent {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
+.ModalWindowTransparent {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.popupContainer {
+  background: black;
+  padding: 2em;
+  border: 2px solid white;
+}
+
+.popupText {
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+.duration {
+  background: white;
+  height: 4px;
+  margin-top: 8px;
+  animation: progres 2.5s linear;
+}
+@keyframes progres {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
 /* ========================================================== */
 
 /* BUTTONS */
@@ -94,7 +138,7 @@ button {
   height: 3px;
 }
 
-/* CLOSE BUTTON */
+/* CLOSE BUTTON && STATIC */
 
 .CloseButton {
   position: absolute;
@@ -102,8 +146,13 @@ button {
   right: 12px;
 }
 
+.CloseButtonStaticWrapper {
+  position: relative;
+}
 .CloseButton::before,
-.CloseButton::after {
+.CloseButton::after,
+.CloseButtonStatic::before,
+.CloseButtonStatic::after {
   content: '';
   display: block;
   background: white;
@@ -113,9 +162,11 @@ button {
   position: absolute;
   border-radius: 5px;
 }
-.CloseButton::after {
+.CloseButton::after,
+.CloseButtonStatic::after {
   transform: rotate(-45deg);
 }
+
 
 /* GO BACK BUTTON */
 
@@ -166,7 +217,54 @@ button {
   right: 12px;
 }
 
+/* INPUT FILES BUTTON */
+.InputFilesButton {
+  display: block;
+  width: fit-content;
+  border: 2px solid white;
+  padding: 1em;
+  margin: 4em auto;
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+.InputFilesButton input {
+  display: none;
+}
 
+/* NORMAL BUTTON */
+.NormalButton {
+  width: 100%;
+  border: 2px solid white;
+  padding: 1.34em;
+  margin: 0.5em 0 1em;
+  background: white;
+  font-size: 1em;
+  color: black;
+  letter-spacing: 4px;
+  font-weight: bold;
+}
+
+.NormalButtonDark {
+  color: white;
+  background: black;
+}
+/* SELECT */
+.SelectMenu {
+  background: black;
+  color: white;
+  border: 2px solid white;
+  padding: 1em;
+  display: block;
+  margin: 0.5em 0 1em;
+}
+.SelectMenuLabel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  letter-spacing: 4px;
+  font-weight: bold;
+  text-align: center;
+}
 /* ========================================================== */
 
 /* APP HEADER */

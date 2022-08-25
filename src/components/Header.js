@@ -22,6 +22,8 @@ export default function Header(props) {
       setTitle('Zdjęcia')
     } else if (loc === 'upload') {
       setTitle('Upload')
+    } else if (loc === 'dodaj-zdjecia') {
+      setTitle('Upload')
     } else {
       setTitle('Nie znaleziono strony')
     }
