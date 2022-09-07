@@ -20,8 +20,8 @@ export default function Header(props) {
       setTitle('Home')
     } else if (loc === 'zdjecia') {
       setTitle('Zdjęcia')
-    } else if (loc === 'upload') {
-      setTitle('Upload')
+    } else if (loc === 'utworz-post') {
+      setTitle('Utwórz post')
     } else if (loc === 'dodaj-zdjecia') {
       setTitle('Upload')
     } else {

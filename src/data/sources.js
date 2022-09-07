@@ -1,5 +1,15 @@
 const dev = true
 
+let sources = {
+  host: 'https://api.karolserverlublinv1.com',
+  imageNames: 'https://api.karolserverlublinv1.com/images/images/',
+  imageFile: 'https://api.karolserverlublinv1.com/images/one/',
+  login: 'https://api.karolserverlublinv1.com/auth/login',
+  logout: 'https://api.karolserverlublinv1.com/auth/logout',
+  verifyToken: 'https://api.karolserverlublinv1.com/auth/verify-token',
+  clusters: 'https://api.karolserverlublinv1.com/images/clusters/',
+}
+
 if (dev) {
   sources = {
     host: 'http://localhost:5000',

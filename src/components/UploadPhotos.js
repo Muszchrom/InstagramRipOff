@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { InputFilesButton, CloseButtonStatic, NormalButton, NormalButtonDark } from './Buttons'
-import { Select, LoadingAnimation } from './UIAssets'
+import { InputFilesButton, NormalButton, NormalButtonDark } from './Buttons'
+import { Select, LoadingAnimation, Popup, ImagesToUploadPreview } from './UIAssets'
 import { fetchClusters, sendCluster, sendImages } from './fetchMethods'
 
 export default function Upload() {
@@ -19,6 +19,7 @@ export default function Upload() {
 
   const navigate = useNavigate()
   const delay = 2500
+
   // hide Popup
   useEffect(() => {
     setTimeout(() => {
@@ -118,7 +119,7 @@ export default function Upload() {
               setShowPopup={setShowPopup}/>
           ) : (
             <>
-              {!!showPopup && <SuccessWindow>{popupMessage}</SuccessWindow>}
+              {!!showPopup && <Popup>{popupMessage}</Popup>}
               <UploadPhotosMainPage
                 handleSubmit={handleSubmit}
                 choosenClusterId={choosenClusterId}
@@ -130,6 +131,7 @@ export default function Upload() {
             </>
           )
       )}
+      {status >= 500 && <Popup>Wystąpił problem z serwerem</Popup>}
       <InputFilesButton changeState={handleImagesToUpload}>Dodaj zdjęcia</InputFilesButton>
     </div>
   )
@@ -138,11 +140,7 @@ export default function Upload() {
 function UploadPhotosMainPage(props) {
   return (
     <>
-      <div className="UploadImagesPreviewContainer">
-        {props.imagesToUpload.map((file, index) => {
-          return (<UploadImagePreview blob={file.blob} removeImage={props.removeImage} fileName={file.fileName} index={index} key={index} alt="Preview..." />);
-        })}
-      </div>
+      <ImagesToUploadPreview imagesToUpload={props.imagesToUpload} removeImage={props.removeImage}/>
       <div className="eightyPercent">
         {props.clusters.length
           ? (<Select
@@ -162,19 +160,6 @@ function UploadPhotosMainPage(props) {
   )
 }
 
-function UploadImagePreview(props) {
-  return (
-    <div className="UploadImagePreviewContainer">
-      <div className="UploadTextAndImageContainer">
-        <div className="UploadImageContainer">
-          <img className="ImageContain" src={props.blob} alt="I DONT EVEN KNOW MAN"/>
-        </div>
-        <span className="TextWrap">{props.fileName}</span>
-      </div>
-      <CloseButtonStatic changeState={props.removeImage} toState={props.index}/>
-    </div>
-  );
-}
 
 function CreateNewCluster(props) {
   const [showLoadingAnimation, setShowLoadingAnimation] = useState(false)
@@ -274,18 +259,5 @@ function CreateNewCluster(props) {
           <NormalButtonDark type="button" execFunc={() => props.setWantToCreateNewCluster(!props.wantToCreateNewCluster)}>Wstecz</NormalButtonDark>
         </form>
       </>
-  )
-}
-
-function SuccessWindow(props) {
-  return (
-    <div className="ModalWindowTransparent">
-      <div className="popupContainer">
-        <span className="popupText">
-          {props.children}
-        </span>
-        <div className="duration"></div>
-      </div>
-    </div>
   )
 }

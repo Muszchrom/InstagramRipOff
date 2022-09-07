@@ -10,6 +10,7 @@ import { RequireAuth, LogOut } from './components/Auth'
 import Header from './components/Header'
 import Home from './components/Home'
 import UploadPhotos from './components/UploadPhotos'
+import UploadPosts from './components/UploadPosts'
 import LogIn from './components/LogIn'
 import Images from './components/Images'
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<Home/>} />
             <Route path="zdjecia/:cluster" element={<Images/>} />
             <Route path="dodaj-zdjecia" element={<UploadPhotos />} />
+            <Route path="utworz-post" element={<UploadPosts />} />
             <Route path="*" element={<NotFound/>} />
           </Route>
 
