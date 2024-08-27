@@ -1,13 +1,13 @@
 const dev = true
 
 let sources = {
-  host: 'https://api.karolserverlublinv1.com',
-  imageNames: 'https://api.karolserverlublinv1.com/images/images/',
-  imageFile: 'https://api.karolserverlublinv1.com/images/one/',
-  login: 'https://api.karolserverlublinv1.com/auth/login',
-  logout: 'https://api.karolserverlublinv1.com/auth/logout',
-  verifyToken: 'https://api.karolserverlublinv1.com/auth/verify-token',
-  clusters: 'https://api.karolserverlublinv1.com/images/clusters/',
+  host: 'https://api.EXAMPLE.com',
+  imageNames: 'https://api.EXAMPLE.com/images/images/',
+  imageFile: 'https://api.EXAMPLE.com/images/one/',
+  login: 'https://api.EXAMPLE.com/auth/login',
+  logout: 'https://api.EXAMPLE.com/auth/logout',
+  verifyToken: 'https://api.EXAMPLE.com/auth/verify-token',
+  clusters: 'https://api.EXAMPLE.com/images/clusters/',
 }
 
 if (dev) {
